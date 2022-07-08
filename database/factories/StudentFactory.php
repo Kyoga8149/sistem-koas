@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\StudyType;
+use App\Models\Institution;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,12 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'full_name' => $this->faker->name(),
+            'institution_id' => Institution::factory(),
+            'student_number' => $this->faker->isbn10(),
+            'email' => $this->faker->safeEmail(),
+            'phone' => $this->faker->phoneNumber(),
+            'study_type' => StudyType::Clerkship->value,
         ];
     }
 }

@@ -13,14 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('grade_items', function (Blueprint $table) {
+        Schema::create('stationeds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('grading_id')
+            $table->foreignId('group_id')
                 ->constrained();
-            $table->string('name');
-            $table->string('description');
-            $table->foreignId('assigned_station_student_id')
+            $table->foreignId('station_id')
                 ->constrained();
+            $table->foreignId('teacher_id')
+                ->constrained();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('status');
+
             $table->timestamps();
         });
     }
@@ -32,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grade_items');
+        Schema::dropIfExists('stationeds');
     }
 };

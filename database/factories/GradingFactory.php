@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\StudyType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class GradingFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->words(3),
+            'description' => $this->faker->sentence(),
+            'study_type' => StudyType::Clerkship,
         ];
     }
 }

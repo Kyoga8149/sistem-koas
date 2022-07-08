@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\InstitutionSubType;
+use App\Enums\InstitutionType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,9 @@ class InstitutionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->company(),
+            'type' => InstitutionType::School->value,
+            'subtype' => InstitutionSubType::University->value,
         ];
     }
 }

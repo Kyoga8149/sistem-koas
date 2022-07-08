@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\StudyType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Grading extends Model
 {
+    public $casts = [
+        'study_type' => StudyType::class,
+    ];
+
     use HasFactory;
 }

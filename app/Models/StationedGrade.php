@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StationedGrade extends Model
+class GradeItem extends Model
 {
     use HasFactory;
 
-    public function grading()
+    public function subject()
     {
-        return $this->belongsTo(Grading::class);
+        return $this->belongsTo(Subject::class);
     }
 
-    public function stationedStudent()
+    public function grade()
     {
-        return $this->belongsTo(StationedStudent::class);
+        return $this->belongsTo(Grade::class);
     }
 }

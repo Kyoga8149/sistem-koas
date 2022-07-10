@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Grading;
-use App\Models\Institution;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AdminSeeder::class);
         $this->call(InstitutionSeeder::class);
-        $this->call(GradingSeeder::class);
+        $this->call(SubjectSeeder::class);
+
+        $this->call(GroupSeeder::class);
     }
 }

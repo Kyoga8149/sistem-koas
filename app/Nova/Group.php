@@ -2,8 +2,14 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\HasManyThrough;
+use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Group extends Resource
@@ -41,6 +47,15 @@ class Group extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Name'),
+            Text::make('Description')
+                ->hideFromIndex(),
+            Text::make('Study Type'),
+            Date::make('Start Date'),
+            Date::make('End Date'),
+            Text::make('Status'),
+            HasOne::make('Sender', null, Institution::class),
+            BelongsToMany::make('Students'),
         ];
     }
 

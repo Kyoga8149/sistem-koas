@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Group;
+use App\Models\Student;
+use App\Enums\StudyType;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class GroupSeeder extends Seeder
 {
@@ -14,6 +17,5 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        //
     }
 }

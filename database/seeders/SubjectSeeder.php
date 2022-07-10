@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Enums\StudyType;
-use App\Models\Grading;
+use App\Models\Subject;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class GradingSeeder extends Seeder
+class SubjectSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,7 +27,7 @@ class GradingSeeder extends Seeder
             'Nilai Akhir',
         ];
         foreach ($titles as $title) {
-            Grading::factory()->create([
+            Subject::factory()->create([
                 'name' => $title,
                 'study_type' => StudyType::Clerkship,
             ]);

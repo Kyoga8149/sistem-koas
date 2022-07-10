@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\StudyType;
+use App\Models\GroupStatus;
+use App\Models\Institution;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,13 @@ class GroupFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->words(2),
+            'description' => $this->faker->sentence(),
+            'study_type' => StudyType::Clerkship,
+            'sender_id' => Institution::factory(),
+            'start_date' => now(),
+            'end_date' => now()->addYears(2),
+            'status' => GroupStatus::Ready,
         ];
     }
 }

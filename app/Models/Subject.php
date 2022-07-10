@@ -6,7 +6,7 @@ use App\Enums\StudyType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Grading extends Model
+class Subject extends Model
 {
     public $casts = [
         'study_type' => StudyType::class,

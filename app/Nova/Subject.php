@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Grading extends Resource
+class Subject extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Grading::class;
+    public static $model = \App\Models\Subject::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

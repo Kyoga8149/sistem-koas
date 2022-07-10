@@ -6,9 +6,9 @@ use App\Enums\StudyType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Grading>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subject>
  */
-class GradingFactory extends Factory
+class SubjectFactory extends Factory
 {
     /**
      * Define the model's default state.

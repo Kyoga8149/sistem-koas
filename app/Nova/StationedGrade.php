@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class StationedGrade extends Resource
+class GradeItem extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\StationedGrade::class;
+    public static $model = \App\Models\GradeItem::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

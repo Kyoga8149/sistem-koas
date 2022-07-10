@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
+use App\Models\Student;
+use App\Models\GroupStudentStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,9 @@ class GroupStudentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'group_id' => Group::factory(),
+            'student_id' => Student::factory(),
+            'status' => GroupStudentStatus::Complete,
         ];
     }
 }

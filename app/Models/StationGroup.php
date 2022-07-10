@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Stationed extends Model
+class StationGroup extends Model
 {
     use HasFactory;
 
     protected $casts = [
-        'status' => StationedStatus::class,
+        'status' => StationGroupStatus::class,
         'start_date' => 'date',
         'end_date' => 'date',
     ];
@@ -30,13 +30,13 @@ class Stationed extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function students()
+    public function grades()
     {
-        return $this->hasMany(StationedStudent::class);
+        return $this->hasMany(Grade::class);
     }
 }
 
-enum StationedStatus: string
+enum StationGroupStatus: string
 {
     case New = 'new';
     case Scheduled = 'scheduled';

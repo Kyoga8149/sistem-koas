@@ -25,12 +25,12 @@ class Group extends Model
 
     public function students()
     {
-        return $this->hasManyThrough(Student::class, GroupStudent::class);
+        return $this->belongsToMany(Student::class);
     }
 
     public function assignedStations()
     {
-        return $this->hasMany(Stationed::class);
+        return $this->hasMany(StationGroup::class);
     }
 }
 

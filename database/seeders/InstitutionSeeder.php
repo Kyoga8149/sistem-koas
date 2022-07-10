@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Group;
+use App\Models\Station;
 use App\Models\Student;
+use App\Enums\StudyType;
 use App\Models\Institution;
 use App\Enums\InstitutionType;
 use Illuminate\Database\Seeder;
 use App\Enums\InstitutionSubType;
-use App\Enums\StudyType;
-use App\Models\Station;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class InstitutionSeeder extends Seeder
 {
@@ -44,10 +44,9 @@ class InstitutionSeeder extends Seeder
             'type' => InstitutionType::School->value,
             'subtype' => InstitutionSubType::University->value,
         ]);
-        Student::factory()->count(10)->create([
-            'institution_id' => $school->id,
-        ]);
 
+        // students
+        $this->seedStudentGroups($hospital, $school);
 
         // Station
         $this->seedStations($hospital);
@@ -74,6 +73,26 @@ class InstitutionSeeder extends Seeder
                 'hospital_id' => $hospital->id,
                 'name' => $name,
                 'key' => strtolower($name),
+            ]);
+        }
+    }
+
+    public function seedStudentGroups(Institution $hospital, Institution $school)
+    {
+        /** @var Group */
+        $koas1 = Group::factory()->create([
+            'name' => 'Koas Group 1',
+            'study_type' => StudyType::Clerkship,
+            'sender_id' => $school->id,
+        ]);
+
+        $students = Student::factory()->count(10)->create([
+            'institution_id' => $school->id,
+        ]);
+
+        foreach ($students as $student) {
+            $koas1->students()->attach($student, [
+                'status' => 'complete',
             ]);
         }
     }

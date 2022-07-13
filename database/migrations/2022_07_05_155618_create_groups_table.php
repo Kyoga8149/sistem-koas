@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('study_type');
-            $table->foreignId('sender_id')
-                ->constrained('institutions');
+            $table->foreignId('school_id')
+                ->constrained('schools');
             $table->date('start_date');
             $table->date('end_date');
 

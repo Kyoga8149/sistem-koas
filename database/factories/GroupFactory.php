@@ -3,8 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\StudyType;
-use App\Models\Enums\GroupStatus;
-use App\Models\Institution;
+use App\Models\School;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +22,7 @@ class GroupFactory extends Factory
             'name' => $this->faker->words(2, true),
             'description' => $this->faker->sentence(),
             'study_type' => StudyType::Clerkship,
-            'sender_id' => Institution::factory(),
+            'school_id' => School::factory(),
             'start_date' => now(),
             'end_date' => now()->addYears(2),
         ];

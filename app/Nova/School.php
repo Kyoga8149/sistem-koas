@@ -4,17 +4,18 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Institution extends Resource
+class School extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Institution::class;
+    public static $model = \App\Models\School::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -42,9 +43,9 @@ class Institution extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name'),
-            Text::make('Type'),
-            Text::make('Subtype'),
+            Text::make('Name')->sortable(),
+            HasMany::make('Groups'),
+            HasMany::make('Students'),
         ];
     }
 

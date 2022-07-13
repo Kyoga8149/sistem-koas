@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Student;
 use App\Enums\StudyType;
-use App\Models\Institution;
 use App\Models\StationGroup;
 use App\Models\Enums\GroupStatus;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +27,7 @@ class Group extends Model
 
     public function school()
     {
-        return $this->belongsTo(Institution::class, 'sender_id');
+        return $this->belongsTo(School::class);
     }
 
     public function students()

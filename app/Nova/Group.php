@@ -3,21 +3,20 @@
 namespace App\Nova;
 
 use App\Enums\StudyType;
-use App\Models\Enums\GroupStatus;
-use App\Models\Institution;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
-use App\Enums\InstitutionType;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\HasMany;
+use App\Models\Enums\GroupStatus;
+use App\Models\School as ModelSchool;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use App\Nova\Institution as NovaInstitution;
+
 
 class Group extends Resource
 {
@@ -77,9 +76,9 @@ class Group extends Resource
                 ->readonly()
                 ->hideWhenCreating(),
 
-            Select::make('School', 'sender_id')
+            Select::make('School', 'school_id')
                 ->options(function () {
-                    return Institution::where('type', InstitutionType::School)
+                    return ModelSchool::all()
                         ->pluck('name', 'id');
                 })
                 ->showOnCreating()
@@ -87,16 +86,9 @@ class Group extends Resource
                 ->hideFromIndex()
                 ->required(),
 
-            HasOne::make('School', 'school', NovaInstitution::class),
+            BelongsTo::make('School'),
 
-            BelongsToMany::make('Students')
-                ->fields(function () {
-                    return [
-                        Text::make('status')
-                            ->default('incomplete_data')
-                            ->showOnCreating(),
-                    ];
-                }),
+            HasMany::make('Students'),
         ];
     }
 

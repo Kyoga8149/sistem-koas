@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('hospital_id')
-                ->constrained('institutions');
+                ->constrained('hospitals');
             $table->timestamps();
         });
     }

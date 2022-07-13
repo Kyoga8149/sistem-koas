@@ -49,7 +49,8 @@ class Student extends Resource
             Email::make('Email'),
             Text::make('Phone'),
             Text::make('Study Type'),
-            BelongsTo::make('School', null, Institution::class),
+            BelongsTo::make('School'),
+            BelongsTo::make('Group'),
         ];
     }
 

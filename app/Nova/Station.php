@@ -22,7 +22,7 @@ class Station extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -43,9 +43,8 @@ class Station extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Key')->readonly(),
             Text::make('Name'),
-            BelongsTo::make('Hospital', null, Institution::class),
+            BelongsTo::make('Hospital'),
         ];
     }
 

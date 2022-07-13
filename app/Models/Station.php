@@ -11,6 +11,6 @@ class Station extends Model
 
     public function hospital()
     {
-        return $this->belongsTo(Institution::class, 'institution_id');
+        return $this->belongsTo(Hospital::class);
     }
 }

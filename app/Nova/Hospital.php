@@ -2,25 +2,27 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class GroupStudent extends Resource
+class Hospital extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\GroupStudent::class;
+    public static $model = \App\Models\Hospital::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -41,6 +43,8 @@ class GroupStudent extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Name')->sortable(),
+            HasMany::make('Stations'),
         ];
     }
 

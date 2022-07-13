@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Institution;
+use App\Models\Hospital;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +19,7 @@ class StationFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
-            'hospital_id' => Institution::factory(),
+            'hospital_id' => Hospital::factory(),
         ];
     }
 }

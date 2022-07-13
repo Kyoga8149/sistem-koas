@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Enums\InstitutionType;
 use Illuminate\Database\Seeder;
 use App\Enums\InstitutionSubType;
+use App\Models\Hospital;
+use App\Models\School;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 
@@ -14,11 +16,9 @@ class SanjiwaniSeeder extends Seeder
 
     public function run()
     {
-        DB::table('institutions')->insert([
+        DB::table('hospitals')->insert([
             'id' => $this->hospitalId,
             'name' => 'Sanjiwani, RS',
-            'type' => InstitutionType::Healthcare->value,
-            'subtype' => InstitutionSubType::Hospital->value,
         ]);
 
         $stations = [
@@ -44,6 +44,15 @@ class SanjiwaniSeeder extends Seeder
         }
 
         $this->createStationScheduleSetting();
+
+        School::factory()->create([
+            'name' => 'SMK 1',
+        ]);
+
+        /** @var Institution */
+        $school = school::factory()->create([
+            'name' => 'Warmadewa, Universitas',
+        ]);
     }
 
     public function createStationScheduleSetting()

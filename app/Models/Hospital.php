@@ -7,12 +7,12 @@ use App\Enums\InstitutionType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Institution extends Model
+class Hospital extends Model
 {
-    protected $casts = [
-        'type' => InstitutionType::class,
-        'subtype' => InstitutionSubType::class,
-    ];
-
     use HasFactory;
+
+    public function stations()
+    {
+        return $this->hasMany(Station::class);
+    }
 }

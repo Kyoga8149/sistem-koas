@@ -20,9 +20,10 @@ return new class extends Migration
             $table->foreignId('station_id')
                 ->constrained();
             $table->foreignId('teacher_id')
+                ->nullable()
                 ->constrained();
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->string('status');
 
             $table->timestamps();

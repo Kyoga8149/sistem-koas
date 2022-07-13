@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Institution;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class StationFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word(),
+            'hospital_id' => Institution::factory(),
         ];
     }
 }

@@ -23,7 +23,7 @@ class Student extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'full_name';
 
     /**
      * The columns that should be searched.

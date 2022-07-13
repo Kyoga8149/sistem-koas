@@ -9,9 +9,9 @@ class GroupStudent extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'status' => GroupStudentStatus::class,
-    ];
+    protected $casts = [];
+
+    protected $attributes = [];
 
     public function group()
     {
@@ -22,11 +22,4 @@ class GroupStudent extends Model
     {
         return $this->belongsTo(Student::class);
     }
-}
-
-enum GroupStudentStatus: string
-{
-    case Incomplete = 'incomplete_data';
-    case Verifying = 'verifying';
-    case Complete = 'complete_data';
 }

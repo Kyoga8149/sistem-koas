@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\StudyType;
+use App\Models\Enums\StudentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,15 +13,16 @@ class Student extends Model
 
     protected $casts = [
         'study_type' => StudyType::class,
+        'status' => StudentStatus::class,
     ];
 
-    public function school()
-    {
-        return $this->belongsTo(Institution::class, 'institution_id');
-    }
+    protected $attributes = [
+        'status' => StudentStatus::New,
+        'study_type' => StudyType::Clerkship,
+    ];
 
-    public function groups()
+    public function group()
     {
-        return $this->hasMany(Group::class, GroupStudent::class);
+        return $this->belongsTo(Group::class, 'group_id');
     }
 }

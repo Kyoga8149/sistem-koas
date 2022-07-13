@@ -15,6 +15,18 @@ class StationGroup extends Model
         'end_date' => 'date',
     ];
 
+    protected $attributes = [
+        'status' => StationGroupStatus::New,
+    ];
+
+    protected $fillable = [
+        'group_id',
+        'station_id',
+        'teacher_id',
+        'start_date',
+        'end_date',
+    ];
+
     public function group()
     {
         return $this->belongsTo(Group::class);

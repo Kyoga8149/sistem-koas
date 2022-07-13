@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Student;
 use App\Enums\StudyType;
 use App\Models\Institution;
+use App\Models\StationGroup;
+use App\Models\Enums\GroupStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,29 +21,23 @@ class Group extends Model
         'end_date' => 'date',
     ];
 
-    public function sender()
+    protected $attributes = [
+        'study_type' => StudyType::Clerkship,
+        'status' => GroupStatus::New,
+    ];
+
+    public function school()
     {
         return $this->belongsTo(Institution::class, 'sender_id');
     }
 
     public function students()
     {
-        return $this->belongsToMany(Student::class);
+        return $this->hasMany(Student::class);
     }
 
-    public function assignedStations()
+    public function stations()
     {
         return $this->hasMany(StationGroup::class);
     }
-}
-
-enum GroupStatus: string
-{
-    case New = 'new';
-    case StudentAssigned = 'student_assigned';
-    case StationsScheduled = 'stations_scheduled';
-    case Ready = 'ready';
-    case Started = 'started';
-    case Finished = 'finished';
-    case StudensReturned = 'students_returned';
 }

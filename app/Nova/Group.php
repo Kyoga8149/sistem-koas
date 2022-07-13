@@ -2,15 +2,22 @@
 
 namespace App\Nova;
 
+use App\Enums\StudyType;
+use App\Models\Enums\GroupStatus;
+use App\Models\Institution;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\HasManyThrough;
-use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\Text;
+use App\Enums\InstitutionType;
+use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Hidden;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Institution as NovaInstitution;
 
 class Group extends Resource
 {
@@ -26,7 +33,7 @@ class Group extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -47,15 +54,49 @@ class Group extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name'),
-            Text::make('Description')
+            Text::make('Name')->required(),
+            Textarea::make('Description')
+                ->nullable()
                 ->hideFromIndex(),
-            Text::make('Study Type'),
-            Date::make('Start Date'),
-            Date::make('End Date'),
-            Text::make('Status'),
-            HasOne::make('Sender', null, Institution::class),
-            BelongsToMany::make('Students'),
+            Select::make('Study Type')
+                ->options([
+                    StudyType::Clerkship->value => 'Koas',
+                    StudyType::Residency->value => 'Residensi',
+                ])->required(),
+            Date::make('Start Date')
+                ->default(now()->addDay())
+                ->required(),
+            Date::make('End Date')
+                ->default(now()->addYear(2))
+                ->required(),
+
+            Hidden::make('Status')
+                ->default(GroupStatus::New)
+                ->showOnCreating(),
+            Text::make('Status')
+                ->readonly()
+                ->hideWhenCreating(),
+
+            Select::make('School', 'sender_id')
+                ->options(function () {
+                    return Institution::where('type', InstitutionType::School)
+                        ->pluck('name', 'id');
+                })
+                ->showOnCreating()
+                ->hideFromDetail()
+                ->hideFromIndex()
+                ->required(),
+
+            HasOne::make('School', 'school', NovaInstitution::class),
+
+            BelongsToMany::make('Students')
+                ->fields(function () {
+                    return [
+                        Text::make('status')
+                            ->default('incomplete_data')
+                            ->showOnCreating(),
+                    ];
+                }),
         ];
     }
 

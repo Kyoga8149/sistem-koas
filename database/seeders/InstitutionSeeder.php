@@ -91,9 +91,7 @@ class InstitutionSeeder extends Seeder
         ]);
 
         foreach ($students as $student) {
-            $koas1->students()->attach($student, [
-                'status' => 'complete',
-            ]);
+            $koas1->students()->attach($student);
         }
     }
 }

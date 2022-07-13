@@ -19,7 +19,6 @@ return new class extends Migration
                 ->constrained();
             $table->foreignId('student_id')
                 ->constrained();
-            $table->string('status');
             $table->timestamps();
         });
     }

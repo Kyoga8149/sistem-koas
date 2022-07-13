@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Enums\StationGroupStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StationGroup extends Model
 {
@@ -46,12 +48,4 @@ class StationGroup extends Model
     {
         return $this->hasMany(Grade::class);
     }
-}
-
-enum StationGroupStatus: string
-{
-    case New = 'new';
-    case Scheduled = 'scheduled';
-    case InProgress = 'in_progress';
-    case Done = 'done';
 }

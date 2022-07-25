@@ -3,14 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Group;
-use App\Models\Station;
 use App\Models\Student;
 use App\Enums\StudyType;
-use App\Models\Institution;
-use App\Enums\InstitutionType;
 use Illuminate\Database\Seeder;
-use App\Enums\InstitutionSubType;
-use App\Models\Hospital;
 use App\Models\School;
 
 class StudentSeeder extends Seeder
@@ -22,7 +17,6 @@ class StudentSeeder extends Seeder
      */
     public function run()
     {
-        $hospital = Hospital::first();
         $school = School::first();
 
         // students
@@ -33,8 +27,7 @@ class StudentSeeder extends Seeder
             'school_id' => $school->id,
         ]);
 
-        $students = Student::factory()->count(10)->create([
-            'school_id' => $school->id,
+        Student::factory()->count(10)->create([
             'group_id' => $koas1->id,
         ]);
     }

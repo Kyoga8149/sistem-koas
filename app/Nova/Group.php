@@ -4,19 +4,27 @@ namespace App\Nova;
 
 use App\Enums\StudyType;
 use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
+use App\Nova\Lenses\KoasGroup;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\Select;
-use App\Models\Enums\GroupStatus;
-use App\Models\School as ModelSchool;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsToMany;
+use App\Nova\Fields\CustomField;
 use Laravel\Nova\Fields\HasMany;
+use App\Models\Enums\GroupStatus;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\MorphMany;
+use App\Nova\Fields\SelectStudyType;
+use App\Models\School as ModelSchool;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
-
+use App\Nova\Actions\Groups\MarkGroupAsReady;
+use App\Nova\Actions\Groups\CreateKoasSchedule;
+use App\Nova\Actions\Groups\FinishAssigningStudentsToGroup;
+use Illuminate\Support\Facades\Log;
 
 class Group extends Resource
 {
@@ -57,11 +65,13 @@ class Group extends Resource
             Textarea::make('Description')
                 ->nullable()
                 ->hideFromIndex(),
-            Select::make('Study Type')
-                ->options([
-                    StudyType::Clerkship->value => 'Koas',
-                    StudyType::Residency->value => 'Residensi',
-                ])->required(),
+
+            CustomField::selectStudyType()
+                ->default(function (Request $request) {
+                    return $request->input('study_type');
+                })
+                ->required(),
+
             Date::make('Start Date')
                 ->default(now()->addDay())
                 ->required(),
@@ -76,19 +86,24 @@ class Group extends Resource
                 ->readonly()
                 ->hideWhenCreating(),
 
-            Select::make('School', 'school_id')
-                ->options(function () {
-                    return ModelSchool::all()
-                        ->pluck('name', 'id');
-                })
-                ->showOnCreating()
-                ->hideFromDetail()
-                ->hideFromIndex()
-                ->required(),
+            // Select::make('School', 'school_id')
+            //     ->options(function () {
+            //         return ModelSchool::all()
+            //             ->pluck('name', 'id');
+            //     })
+            //     ->showOnCreating()
+            //     ->hideFromDetail()
+            //     ->hideFromIndex()
+            //     ->required(),
 
             BelongsTo::make('School'),
 
+            MorphMany::make('Attachments'),
+
             HasMany::make('Students'),
+
+            HasMany::make('Stations', 'stationGroups', StationGroup::class),
+
         ];
     }
 
@@ -122,7 +137,9 @@ class Group extends Resource
      */
     public function lenses(NovaRequest $request)
     {
-        return [];
+        return [
+            KoasGroup::make(),
+        ];
     }
 
     /**
@@ -133,6 +150,27 @@ class Group extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            FinishAssigningStudentsToGroup::make()
+                ->canSee(function ($request) {
+                    if ($this->resource->status !== GroupStatus::New) return false;
+                    return true;
+                }),
+
+            CreateKoasSchedule::make()
+                ->canSee(function ($request) {
+                    if ($this->resource->status !== GroupStatus::StudentAssigned) return false;
+                    if ($this->resource->study_type !== StudyType::Clerkship) return false;
+                    return true;
+                }),
+
+            MarkGroupAsReady::make()
+                ->canSee(function ($request) {
+                    // Log::error("hello");
+                    // if ($this->resource->status === GroupStatus::StationsScheduled) return true;
+                    // return false;
+                    return true;
+                }),
+        ];
     }
 }

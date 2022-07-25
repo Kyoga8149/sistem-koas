@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\StudyType;
 use App\Models\Enums\StudentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,14 +10,14 @@ class Student extends Model
 {
     use HasFactory;
 
+    public const ATTACHMENT_SIP = 'sip';
+
     protected $casts = [
-        'study_type' => StudyType::class,
         'status' => StudentStatus::class,
     ];
 
     protected $attributes = [
         'status' => StudentStatus::New,
-        'study_type' => StudyType::Clerkship,
     ];
 
     public function group()
@@ -26,8 +25,14 @@ class Student extends Model
         return $this->belongsTo(Group::class, 'group_id');
     }
 
-    public function school()
+    public function attachments()
     {
-        return $this->belongsTo(School::class);
+        return $this->morphMany(Attachment::class, 'attachable');
+    }
+
+    public function sip()
+    {
+        return $this->morphOne(Attachment::class, 'attachable')
+            ->where('key', self::ATTACHMENT_SIP);
     }
 }

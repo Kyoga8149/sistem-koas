@@ -2,35 +2,28 @@
 
 namespace App\Nova;
 
-use App\Nova\Actions\Students\MarkStudentDataAsComplete;
-use App\Nova\Actions\Students\NotifyStudentToCompleteData;
 use App\Nova\Fields\CustomField;
-use App\Nova\Lenses\KoasStudent;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Email;
-use Laravel\Nova\Fields\MorphMany;
-use Laravel\Nova\Fields\MorphOne;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Student extends Resource
+class Attachment extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Student::class;
+    public static $model = \App\Models\Attachment::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'full_name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -51,15 +44,21 @@ class Student extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Group'),
-            Text::make('Full Name'),
-            Text::make('Student Number'),
-            Email::make('Email'),
-            Text::make('Phone'),
-            Textarea::make('Notes')->hideFromIndex(),
-            Text::make('Status'),
-            MorphOne::make('Sip', 'sip', Attachment::class),
-            MorphMany::make('Attachments'),
+
+            CustomField::selectAttachmentType(),
+
+            Text::make('Name')->exceptOnForms(),
+
+            Text::make('Size')->exceptOnForms()
+                ->displayUsing(function ($value) {
+                    return number_format($value / 1024, 2) . 'kb';
+                }),
+
+            File::make('Url')
+                ->disk('public')
+                ->storeOriginalName('name')
+                ->storeSize('size'),
+
         ];
     }
 
@@ -93,9 +92,7 @@ class Student extends Resource
      */
     public function lenses(NovaRequest $request)
     {
-        return [
-            KoasStudent::make(),
-        ];
+        return [];
     }
 
     /**
@@ -106,9 +103,6 @@ class Student extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [
-            MarkStudentDataAsComplete::make(),
-            NotifyStudentToCompleteData::make(),
-        ];
+        return [];
     }
 }

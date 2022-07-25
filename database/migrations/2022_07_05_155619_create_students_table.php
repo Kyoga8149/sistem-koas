@@ -17,13 +17,21 @@ return new class extends Migration
             $table->id();
             $table->foreignId('group_id')
                 ->constrained();
-            $table->foreignId('school_id')
-                ->constrained();
             $table->string('full_name');
             $table->string('student_number');
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('study_type');
+            $table->string('email')
+                ->nullable();
+            $table->string('phone')
+                ->nullable();
+            $table->string('notes')
+                ->nullable();
+            $table->string('photo_url')->nullable();
+            $table->string('file_2_url')->nullable();
+            $table->string('file_3_url')->nullable();
+            $table->string('file_4_url')->nullable();
+            $table->string('file_5_url')->nullable();
+            $table->string('file_6_url')->nullable();
+
             $table->string('status');
             $table->timestamps();
         });

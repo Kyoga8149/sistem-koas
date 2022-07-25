@@ -13,4 +13,9 @@ class Station extends Model
     {
         return $this->belongsTo(Hospital::class);
     }
+
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class);
+    }
 }

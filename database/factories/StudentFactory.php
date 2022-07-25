@@ -24,7 +24,6 @@ class StudentFactory extends Factory
             'student_number' => $this->faker->isbn10(),
             'email' => $this->faker->safeEmail(),
             'phone' => $this->faker->phoneNumber(),
-            'study_type' => StudyType::Clerkship->value,
         ];
     }
 }

@@ -18,4 +18,9 @@ class School extends Model
     {
         return $this->hasMany(Student::class);
     }
+
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
+    }
 }

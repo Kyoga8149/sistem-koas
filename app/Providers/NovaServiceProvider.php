@@ -2,8 +2,20 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
+use Illuminate\Http\Request;
+use App\Nova\Dashboards\Main;
+use App\Nova\Group;
+use App\Nova\Lenses\KoasGroup;
+use App\Nova\Lenses\KoasStudent;
+use App\Nova\Station;
+use App\Nova\Student;
+use App\Nova\Teacher;
+use App\Nova\User;
+use Laravel\Nova\Menu\MenuSection;
+use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Menu\MenuItem;
+use Laravel\Nova\Menu\MenuSeparator;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -16,6 +28,25 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::mainMenu(function (Request $request) {
+            return [
+                MenuSection::dashboard(Main::class)->icon('chart-bar'),
+
+                MenuSection::make('Koas', [
+                    MenuItem::link('Create Group', 'resources/groups/new?study_type=koas'),
+                    MenuItem::lens(Group::class, KoasGroup::class),
+                    MenuItem::lens(Student::class, KoasStudent::class),
+                ]),
+
+                MenuSeparator::make(),
+
+                MenuSection::make('Settings', [
+                    MenuItem::resource(Teacher::class),
+                ]),
+
+            ];
+        });
     }
 
     /**
@@ -26,9 +57,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes()
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**

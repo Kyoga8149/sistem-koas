@@ -33,7 +33,7 @@ class MarkGroupAsReady
         }
 
         // if the first schedule is not ready, throw exception
-        $firstStation = $group->stations()->orderBy('start_date', 'asc')->first();
+        $firstStation = $group->stationGroups()->orderBy('start_date', 'asc')->first();
         if (!$firstStation) {
             throw new Exception("There are no assigned stations to this group", 400);
         }

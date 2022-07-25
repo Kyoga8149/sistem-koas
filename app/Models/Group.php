@@ -35,8 +35,13 @@ class Group extends Model
         return $this->hasMany(Student::class);
     }
 
-    public function stations()
+    public function stationGroups()
     {
         return $this->hasMany(StationGroup::class);
+    }
+
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 }

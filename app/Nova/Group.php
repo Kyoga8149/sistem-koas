@@ -159,8 +159,8 @@ class Group extends Resource
 
             CreateKoasSchedule::make()
                 ->canSee(function ($request) {
-                    if ($this->resource->status !== GroupStatus::StudentAssigned) return false;
-                    if ($this->resource->study_type !== StudyType::Clerkship) return false;
+                    // if ($this->resource->status !== GroupStatus::StudentAssigned) return false;
+                    // if ($this->resource->study_type !== StudyType::Clerkship) return false;
                     return true;
                 }),
 

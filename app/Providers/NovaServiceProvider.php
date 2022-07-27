@@ -43,6 +43,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
                 MenuSection::make('Settings', [
                     MenuItem::resource(Teacher::class),
+                    MenuItem::resource(Station::class),
                 ]),
 
             ];

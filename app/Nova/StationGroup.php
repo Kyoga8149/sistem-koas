@@ -49,7 +49,9 @@ class StationGroup extends Resource
             BelongsTo::make('Teacher'),
             Date::make('Start Date')->sortable(),
             Date::make('End Date')->sortable(),
-            Text::make('Status')->sortable(),
+            Text::make('Status')->sortable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
         ];
     }
 

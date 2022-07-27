@@ -2,19 +2,21 @@
 
 namespace App\Nova;
 
-use App\Nova\Actions\Students\MarkStudentDataAsComplete;
-use App\Nova\Actions\Students\NotifyStudentToCompleteData;
-use App\Nova\Fields\CustomField;
-use App\Nova\Lenses\KoasStudent;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Email;
-use Laravel\Nova\Fields\MorphMany;
-use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Email;
+use Laravel\Nova\Fields\Hidden;
+use App\Nova\Fields\CustomField;
+use App\Nova\Lenses\KoasStudent;
+use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\MorphMany;
+use App\Models\Enums\StudentStatus;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Actions\Students\MarkStudentDataAsComplete;
+use App\Nova\Actions\Students\NotifyStudentToCompleteData;
 
 class Student extends Resource
 {
@@ -57,7 +59,9 @@ class Student extends Resource
             Email::make('Email'),
             Text::make('Phone'),
             Textarea::make('Notes')->hideFromIndex(),
-            Text::make('Status'),
+            Hidden::make('Status')
+                ->default(StudentStatus::New)
+                ->showOnCreating(),
             MorphOne::make('Sip', 'sip', Attachment::class),
             MorphMany::make('Attachments'),
         ];

@@ -5,6 +5,8 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
+use App\Models\Enums\StationType;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -17,12 +19,13 @@ class Station extends Resource
      */
     public static $model = \App\Models\Station::class;
 
-    /**
-     * The single value that should be used to represent the resource when being displayed.
-     *
-     * @var string
-     */
-    public static $title = 'name';
+    public function title()
+    {
+        if ($this->hospital_id) {
+            return $this->hospital->name . " / " . $this->name;
+        }
+        return $this->name;
+    }
 
     /**
      * The columns that should be searched.
@@ -43,7 +46,15 @@ class Station extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name'),
+            Select::make('Name')
+                ->options(function () {
+                    $options = [];
+                    foreach (StationType::cases() as $case) {
+                        $options[$case->value] = $case->value;
+                    }
+                    asort($options);
+                    return $options;
+                }),
             BelongsTo::make('Hospital'),
         ];
     }

@@ -52,9 +52,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::footer(function ($request) {
             return Blade::render('
-                @env(\'prod\')
-                    This is production!
-                @endenv
+               <p class="text-center">Sistem Koas
+               <br/>
+               Powered by Taksu Health</p>
             ');
         });
     }

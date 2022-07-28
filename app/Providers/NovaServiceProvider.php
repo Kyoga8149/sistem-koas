@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Menu\MenuSeparator;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -47,6 +48,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ]),
 
             ];
+        });
+
+        Nova::footer(function ($request) {
+            return Blade::render('
+                @env(\'prod\')
+                    This is production!
+                @endenv
+            ');
         });
     }
 

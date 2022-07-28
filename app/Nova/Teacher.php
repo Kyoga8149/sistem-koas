@@ -47,6 +47,7 @@ class Teacher extends Resource
             Text::make('Full Name'),
             Email::make('Email'),
             Text::make('Phone'),
+            Text::make('Teaching Type'),
             BelongsTo::make('Station'),
         ];
     }

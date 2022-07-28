@@ -6,4 +6,5 @@ enum TeachingType: string
 {
     case Doctor = 'doctor';
     case Nurse = 'nurse';
+    case Koas = 'koas';
 }

@@ -2,11 +2,13 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\StationGroup\AssignTeacherToStationGroup;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class StationGroup extends Resource
@@ -44,12 +46,14 @@ class StationGroup extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Type', 'station_type')->sortable(),
             BelongsTo::make('Group'),
             BelongsTo::make('Station'),
             BelongsTo::make('Teacher'),
             Date::make('Start Date')->sortable(),
             Date::make('End Date')->sortable(),
             Text::make('Status')->sortable()
+                ->hideFromIndex()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
         ];
@@ -96,6 +100,9 @@ class StationGroup extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            AssignTeacherToStationGroup::make()
+                ->onlyOnDetail(),
+        ];
     }
 }

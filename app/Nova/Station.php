@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
 use App\Models\Enums\StationType;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Station extends Resource
@@ -22,7 +23,7 @@ class Station extends Resource
     public function title()
     {
         if ($this->hospital_id) {
-            return $this->hospital->name . " / " . $this->name;
+            return $this->hospital->name . " / " . $this->type->value;
         }
         return $this->name;
     }
@@ -46,7 +47,7 @@ class Station extends Resource
     {
         return [
             ID::make()->sortable(),
-            Select::make('Name')
+            Select::make('Type')
                 ->options(function () {
                     $options = [];
                     foreach (StationType::cases() as $case) {
@@ -56,6 +57,7 @@ class Station extends Resource
                     return $options;
                 }),
             BelongsTo::make('Hospital'),
+            HasMany::make('Teachers'),
         ];
     }
 

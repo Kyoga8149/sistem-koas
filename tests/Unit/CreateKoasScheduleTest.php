@@ -72,7 +72,7 @@ class CreateKoasScheduleTest extends TestCase
         $group = $this->createValidGroup();
         CreateKoasSchedule::run($group);
 
-        $this->assertEquals(11, $group->stations()->count());
+        $this->assertEquals(11, $group->stationGroups()->count());
     }
 
     private function createValidGroup(): Group

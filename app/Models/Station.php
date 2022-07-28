@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Enums\StationType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use StationType;
 
 class Station extends Model
 {
     use HasFactory;
 
-    protected $attributes = [
-        'name' => StationType::class,
+    protected $casts = [
+        'type' => StationType::class,
     ];
 
     public function hospital()

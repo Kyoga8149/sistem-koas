@@ -12,6 +12,7 @@ use App\Exceptions\InvalidStatusException;
 use App\Models\Setting;
 use App\Models\StationGroup;
 use App\Models\Enums\StationGroupStatus;
+use App\Models\Enums\StationType;
 
 class CreateKoasSchedule
 {
@@ -35,11 +36,11 @@ class CreateKoasSchedule
                 throw new Exception("Setting for Koas schedule week not found", 500);
             }
             $koasDurationWeeks = json_decode($setting->value, false);
-            foreach ($koasDurationWeeks as $stationId => $durationWeeks) {
-
+            foreach ($koasDurationWeeks as $stationType => $durationWeeks) {
                 $stationGroup = new StationGroup([
                     'group_id' => $group->id,
-                    'station_id' => $stationId,
+                    'station_type' => StationType::from($stationType),
+                    'duration_week' => $durationWeeks,
                     'status' => StationGroupStatus::New,
                 ]);
                 $stationGroup->save();
@@ -50,9 +51,8 @@ class CreateKoasSchedule
             $group->save();
             DB::commit();
         } catch (Exception $e) {
-            dd($e->getMessage());
             DB::rollBack();
-            throw new Exception("Error Processing Request", 500);
+            throw new Exception($e->getMessage(), 500);
         }
 
         return $group;

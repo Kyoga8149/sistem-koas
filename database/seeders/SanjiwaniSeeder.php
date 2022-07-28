@@ -5,9 +5,12 @@ namespace Database\Seeders;
 use App\Enums\InstitutionType;
 use Illuminate\Database\Seeder;
 use App\Enums\InstitutionSubType;
+use App\Enums\TeachingType;
+use App\Models\Enums\StationType;
 use App\Models\Hospital;
 use App\Models\School;
 use App\Models\Setting;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\DB;
 
 class SanjiwaniSeeder extends Seeder
@@ -35,11 +38,15 @@ class SanjiwaniSeeder extends Seeder
             110 => 'Radiologi',
             111 => 'Paru',
         ];
-        foreach ($stations as $id => $name) {
+        foreach ($stations as $id => $type) {
             DB::table('stations')->insert([
                 'id' => $id,
-                'name' => $name,
+                'type' => $type,
                 'hospital_id' => $this->hospitalId,
+            ]);
+            Teacher::factory()->count(3)->create([
+                'station_id' => $id,
+                'teaching_type' => TeachingType::Koas,
             ]);
         }
 
@@ -69,21 +76,22 @@ class SanjiwaniSeeder extends Seeder
         // Jiwa: selama 6 minggu;
         // Anestesi: 4 minggu:
         // Radiologi: 4 minggu:
-        $koasScheduleWeek = [
-            100 => 10,
-            101 => 10,
-            102 => 10,
-            103 => 10,
-            104 => 8,
-            105 => 6,
-            106 => 6,
-            107 => 6,
-            108 => 6,
-            109 => 4,
-            110 => 4,
+        $koasStationScheduleWeek = [
+            StationType::Bedah->value => 10,
+            StationType::Bedah->value => 10,
+            StationType::Obgyn->value => 10,
+            StationType::Anak->value => 10,
+            StationType::Interna->value => 10,
+            StationType::Neurologi->value => 8,
+            StationType::Dermatovenerology->value => 6,
+            StationType::THT->value => 6,
+            StationType::Mata->value => 6,
+            StationType::Jiwa->value => 6,
+            StationType::Anestesi->value => 4,
+            StationType::Radiologi->value => 4,
         ];
         $setting = Setting::where('key', Setting::KOAS_SCHEDULE_WEEK)->first();
-        $setting->value = json_encode($koasScheduleWeek);
+        $setting->value = json_encode($koasStationScheduleWeek);
         $setting->save();
     }
 }

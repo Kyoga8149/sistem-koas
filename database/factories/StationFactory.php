@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Enums\StationType;
 use App\Models\Hospital;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,7 @@ class StationFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word(),
+            'type' => StationType::Anak,
             'hospital_id' => Hospital::factory(),
         ];
     }

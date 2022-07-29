@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Enums\InstitutionType;
 use Illuminate\Database\Seeder;
 use App\Enums\InstitutionSubType;
-use App\Enums\TeachingType;
+use App\Enums\StudyType;
 use App\Models\Enums\StationType;
 use App\Models\Hospital;
 use App\Models\School;
@@ -46,7 +46,7 @@ class SanjiwaniSeeder extends Seeder
             ]);
             Teacher::factory()->count(3)->create([
                 'station_id' => $id,
-                'teaching_type' => TeachingType::Koas,
+                'study_type' => StudyType::Koas,
             ]);
         }
 

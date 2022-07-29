@@ -23,7 +23,7 @@ class KoasGroup extends Lens
     public static function query(LensRequest $request, $query)
     {
         return $request->withOrdering($request->withFilters(
-            $query->where('study_type', StudyType::Clerkship->value)
+            $query->where('study_type', StudyType::Koas->value)
         ));
     }
 

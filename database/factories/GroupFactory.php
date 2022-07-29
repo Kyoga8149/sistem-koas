@@ -21,7 +21,7 @@ class GroupFactory extends Factory
         return [
             'name' => $this->faker->words(2, true),
             'description' => $this->faker->sentence(),
-            'study_type' => StudyType::Clerkship,
+            'study_type' => StudyType::Koas,
             'school_id' => School::factory(),
             'start_date' => now(),
             'end_date' => now()->addYears(2),

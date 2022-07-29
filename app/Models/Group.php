@@ -21,7 +21,7 @@ class Group extends Model
     ];
 
     protected $attributes = [
-        'study_type' => StudyType::Clerkship,
+        'study_type' => StudyType::Koas,
         'status' => GroupStatus::New,
     ];
 

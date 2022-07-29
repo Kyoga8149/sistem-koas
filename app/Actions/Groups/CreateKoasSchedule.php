@@ -24,7 +24,7 @@ class CreateKoasSchedule
             throw new InvalidStatusException("Status is not student assigned");
         }
 
-        if ($group->study_type !== StudyType::Clerkship) {
+        if ($group->study_type !== StudyType::Koas) {
             throw new InvalidStatusException("Study type is not clerkship");
         }
 

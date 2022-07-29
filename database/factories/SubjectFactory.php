@@ -20,7 +20,7 @@ class SubjectFactory extends Factory
         return [
             'name' => $this->faker->words(3),
             'description' => $this->faker->sentence(),
-            'study_type' => StudyType::Clerkship,
+            'study_type' => StudyType::Koas,
         ];
     }
 }

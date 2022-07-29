@@ -29,7 +29,7 @@ class SubjectSeeder extends Seeder
         foreach ($titles as $title) {
             Subject::factory()->create([
                 'name' => $title,
-                'study_type' => StudyType::Clerkship,
+                'study_type' => StudyType::Koas,
             ]);
         }
     }

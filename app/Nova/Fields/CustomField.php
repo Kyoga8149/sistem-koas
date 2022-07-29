@@ -13,8 +13,8 @@ class CustomField
     {
         return Select::make('Study Type')
             ->options([
-                StudyType::Clerkship->value => 'Koas',
-                StudyType::Residency->value => 'Residensi',
+                StudyType::Koas->value => 'Koas',
+                StudyType::Residen->value => 'Residensi',
             ]);
     }
 

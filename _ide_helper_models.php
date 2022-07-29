@@ -356,7 +356,7 @@ namespace App\Models{
  * @property int $station_id
  * @property string|null $email
  * @property string|null $phone
- * @property \App\Enums\TeachingType $teaching_type
+ * @property \App\Enums\StudyType $study_type
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Station $station
@@ -370,7 +370,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Teacher wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereStationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereTeachingType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereStudyType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereUpdatedAt($value)
  */
 	class Teacher extends \Eloquent {}

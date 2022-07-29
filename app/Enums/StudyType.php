@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum StudyType: string
 {
-    case Residency = 'residen';
-    case Clerkship = 'koas';
+    case Residen = 'residen';
+    case Koas = 'koas';
 }

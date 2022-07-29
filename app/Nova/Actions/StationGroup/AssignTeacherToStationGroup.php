@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions\StationGroup;
 
+use App\Actions\StationGroups\AssignTeacher;
 use Log;
 use App\Models\Station;
 use App\Models\Teacher;
@@ -18,6 +19,7 @@ use Laravel\Nova\Fields\ActionFields;
 use App\Models\Enums\StationGroupStatus;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Carbon;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class AssignTeacherToStationGroup extends Action
@@ -40,15 +42,12 @@ class AssignTeacherToStationGroup extends Action
         /** @var Teacher */
         $teacher = Teacher::find($teacherId);
 
+        $startDate = Carbon::make($fields->get('start_date'));
+        $endDate = Carbon::make($fields->get('end_date'));
+
         /** @var StationGroup $model */
         foreach ($models as $model) {
-            $model->teacher_id = $teacher->id;
-            $model->station_id = $teacher->station_id;
-            $model->start_date = $fields->get('start_date');
-            $model->end_date = $fields->get('end_date');
-            $model->status = StationGroupStatus::Scheduled;
-
-            $model->save();
+            AssignTeacher::run($model, $teacher, $startDate, $endDate);
         }
     }
 
@@ -68,7 +67,7 @@ class AssignTeacherToStationGroup extends Action
                     $query = DB::table('teachers')
                         ->join('stations', 'teachers.station_id', '=', 'stations.id')
                         ->join('hospitals', 'stations.hospital_id', '=', 'hospitals.id')
-                        ->where('teachers.teaching_type', 'koas')
+                        ->where('teachers.study_type', 'koas')
                         ->select('teachers.id', 'teachers.full_name', 'hospitals.name', 'stations.type')
                         ->orderBy('teachers.full_name', 'asc');
 

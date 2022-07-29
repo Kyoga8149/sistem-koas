@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\TeachingType;
+use App\Enums\StudyType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -11,7 +11,7 @@ class Teacher extends Model
     use HasFactory;
 
     protected $casts = [
-        'teaching_type' => TeachingType::class,
+        'study_type' => StudyType::class,
     ];
 
     public function station()

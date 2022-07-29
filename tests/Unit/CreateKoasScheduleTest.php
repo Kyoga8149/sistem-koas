@@ -40,7 +40,7 @@ class CreateKoasScheduleTest extends TestCase
     public function test_cannot_create_if_study_type_is_not_koas()
     {
         foreach (StudyType::cases() as $type) {
-            if ($type === StudyType::Clerkship) {
+            if ($type === StudyType::Koas) {
                 continue;
             }
 
@@ -60,7 +60,7 @@ class CreateKoasScheduleTest extends TestCase
     public function test_status_is_updated_when_creating_schedule()
     {
         $group = Group::factory()->create([
-            'study_type' => StudyType::Clerkship,
+            'study_type' => StudyType::Koas,
             'status' => GroupStatus::StudentAssigned,
         ]);
         CreateKoasSchedule::run($group);
@@ -78,7 +78,7 @@ class CreateKoasScheduleTest extends TestCase
     private function createValidGroup(): Group
     {
         return Group::factory()->create([
-            'study_type' => StudyType::Clerkship,
+            'study_type' => StudyType::Koas,
             'status' => GroupStatus::StudentAssigned,
         ]);
     }

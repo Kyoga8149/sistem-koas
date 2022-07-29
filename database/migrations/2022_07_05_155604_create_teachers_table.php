@@ -20,7 +20,7 @@ return new class extends Migration
                 ->constrained();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('teaching_type');
+            $table->string('study_type');
             $table->timestamps();
         });
     }

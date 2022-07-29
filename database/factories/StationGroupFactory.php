@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Group;
 use App\Models\Station;
 use App\Models\Enums\StationGroupStatus;
+use App\Models\Enums\StationType;
 use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -13,6 +14,7 @@ class StationGroupFactory extends Factory
     public function definition()
     {
         return [
+            'station_type' => StationType::Anak,
             'group_id' => Group::factory(),
             'station_id' => Station::factory(),
             'teacher_id' => Teacher::factory(),

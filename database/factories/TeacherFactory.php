@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\StudyType;
 use App\Models\Station;
-use App\Enums\TeachingType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +23,7 @@ class TeacherFactory extends Factory
             'station_id' => Station::factory(),
             'email' => $this->faker->safeEmail(),
             'phone' => $this->faker->phoneNumber(),
-            'teaching_type' => TeachingType::Doctor,
+            'study_type' => StudyType::Koas,
         ];
     }
 }

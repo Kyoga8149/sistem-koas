@@ -23,7 +23,7 @@ class StudentSeeder extends Seeder
         /** @var Group */
         $koas1 = Group::factory()->create([
             'name' => 'Koas Group 1',
-            'study_type' => StudyType::Clerkship,
+            'study_type' => StudyType::Koas,
             'school_id' => $school->id,
         ]);
 

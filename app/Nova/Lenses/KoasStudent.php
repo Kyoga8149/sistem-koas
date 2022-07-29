@@ -25,7 +25,7 @@ class KoasStudent extends Lens
             $query
                 ->select(self::columns())
                 ->join('groups', 'groups.id', '=', 'students.group_id')
-                ->where('groups.study_type', StudyType::Clerkship->value),
+                ->where('groups.study_type', StudyType::Koas->value),
         ));
     }
 

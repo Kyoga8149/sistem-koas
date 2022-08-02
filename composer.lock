@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4e0ffa705a6bb869f353e9a164d3919",
+    "content-hash": "6c51e68e1e681a759e6484bed4d0b9a7",
     "packages": [
         {
             "name": "box/spout",
@@ -1698,16 +1698,10 @@
         {
             "name": "laravel/nova",
             "version": "4.11.1",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:laravel/nova.git",
-                "reference": "fb662b6a9100f0cd2a490fd09d627dc719b68d90"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-fb662b6a9100f0cd2a490fd09d627dc719b68d90-zip-927456.zip",
-                "reference": "fb662b6a9100f0cd2a490fd09d627dc719b68d90",
-                "shasum": "1c483517592690bbf39bb5708b6e904cf7da6af1"
+                "type": "path",
+                "url": "/MAGANG/Sumber/sumber taksu/nova",
+                "reference": "d61fb02bc6632e6f2665e2ee0dd3c53d42ecd810"
             },
             "require": {
                 "brick/money": "^0.5.0",
@@ -1800,8 +1794,8 @@
                 "admin",
                 "laravel"
             ],
-            "support": {
-                "source": "https://github.com/laravel/nova/tree/v4.11.1"
+            "transport-options": {
+                "relative": false
             },
             "time": "2022-06-29T19:17:37+00:00"
         },
@@ -6368,6 +6362,9 @@
                 }
             ],
             "description": "Contain setting package that Taksu.tech always use",
+            "support": {
+                "source": "https://gitlab.com/taksu-public/laravel-setting/-/tree/main"
+            },
             "time": "2022-04-06T08:34:11+00:00"
         },
         {
@@ -9652,5 +9649,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }

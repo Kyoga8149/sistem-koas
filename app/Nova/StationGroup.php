@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Actions\StationGroup\AssignTeacherToStationGroup;
+use App\Nova\Actions\StationGroup\GeneratePDFLetter;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
@@ -102,6 +103,9 @@ class StationGroup extends Resource
     {
         return [
             AssignTeacherToStationGroup::make()
+                ->onlyOnDetail(),
+            
+            GeneratePDFLetter::make()
                 ->onlyOnDetail(),
         ];
     }

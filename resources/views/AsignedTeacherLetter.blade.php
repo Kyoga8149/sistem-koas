@@ -2,7 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
     <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
         <title>Surat Pengantar Pengiriman Residen</title>
 
@@ -38,9 +39,9 @@
             td.num::before{
                 counter-increment: coloumnNumber; content: counter(coloumnNumber);
             }
-            div.col-4{
-                margin-left: 300px;
-            }
+            table.ttd {
+                width: 100%; margin-left: auto; margin-right:auto; text-align: center;
+            }             
         </style>
     </head>
 
@@ -80,9 +81,9 @@
                     <td class="space">:</td>
                     <td>*xxx/xxxx/xxx*</td>
                     <td class="space2"></td>
-                    <td>*Gianyar*</td>
+                    <td>Gianyar</td>
                     <td>,</td>
-                    <td>*Tanggal*</td>
+                    <td>Tanggal</td>
                 </tr>
             </table>
             <table>
@@ -94,7 +95,7 @@
                 <tr>
                     <td>Perihal</td>
                     <td class="space">:</td>
-                    <td>*Pengiriman Dokter Muda KKM*</td>
+                    <td>Pengiriman Mahasiswa Koas</td>
                 </tr>
             </table>
         </div>
@@ -103,22 +104,43 @@
         <div style="margin-left: 85px; padding-top: 20px">
             <table>
                 <tr><td></td><td>Kepada</td></tr>
-                <tr><td style="padding-left: 25px; padding-right: 25px">yth</td><td>Direktur RSD mangusada</td></tr>
+                <tr><td style="padding-left: 25px; padding-right: 25px">yth</td><td>{{$stationGroup->teacher_id}}</td></tr>
                 <tr><td></td><td>di-</td></tr>
-                <tr><td></td><td style="text-align: center">*Badung*</td></tr>
+                <tr><td></td><td style="text-align: center">Tempat</td></tr>
             </table>
         </div>
 
         <!-- Kata Pembuka -->
-        <div style="margin-top: 20px; margin-bottom: 30px; width: 75%; margin-left: auto; margin-right:auto; text-align: justify">
+        <div style="margin-top: 20px; width: 75%; margin-left: auto; margin-right:auto; text-align: justify">
             <p>Dengan Hormat<p>
             <p style="text-indent: 50px;">
-                Bersama dengan surat ini kami kirimkan nama Dokter Muda yang akan menjalani
-                Kegiatan KKM (Kepaniteraan Klinik Madya) ke Bagian *Penyakit Dalam* 
-                *RSD Mangusada Badung* selama *2minggu* terhitung dari tanggal *7 Juli 2020* 
-                s/d *30 Juli 2020* siklus dilakukan secara Full Offline, sebagai berikut 
-                nama-nama Dokter Muda yang menjalani KKM yaitu:
+                Bersama dengan surat ini kami kirimkan nama Mahasiswa KOAS yang akan menjalani
+                Kegiatan KOAS ke Bagian {{$stationGroup['stationtype']}} {{$stationGroups['stationhospital']}}
+                terhitung dari tanggal {{$stationGroup['startdate']}} s/d {{$stationGroup['enddate']}} siklus dilakukan secara 
+                Full Offline, sebagai berikut nama-nama Mahasiswa Koas yang menjalani Kegiatan KOAS yaitu:
             </p>
+        </div>
+        
+        <!-- Detail Surat -->
+        
+        <div style="padding-bottom: 10px; margin-left: 85px; margin-top:15px" class="col-3">
+            <table>
+                <tr>
+                    <td>Bagian</td>
+                    <td class="space">:</td>
+                    <td>{{$stationGroup['stationtype']}}</td>
+                </tr>
+                <tr>
+                    <td>Kelompok</td>
+                    <td class="space">:</td>
+                    <td>{{$stationGroup['stationid']}}</td>
+                </tr>
+                <tr>
+                    <td>Mulai</td>
+                    <td class="space">:</td>
+                    <td>{{$stationGroup['startdate']}} s/d {{$stationGroup['enddate']}}</td>
+                </tr>
+            </table>
         </div>
 
         <!-- Detail Peserta -->
@@ -132,61 +154,58 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($student as $student)
+         
+            @foreach($students as $students)
                 <tr>
                     <td style="text-align:center" class="num"></td>
-                    <td> {{$student['name']}} </td>
-                    <td> {{$student['nim']}} </td>
+                    <td> {{$students['fullname']}} </td>
+                    <td> {{$students['studentnumber']}} </td>
                 </tr>                   
             @endforeach
+      
             </tbody>
         </table>
         </div>
 
         <!-- Detail Tugas -->
         <div style="margin-top: 20px; margin-bottom: 30px; width: 75%; margin-left: auto; margin-right:auto; text-align: justify">
-            <p>
-                Selama menjalani KKM di *RSD Mangusada, adapun tugas ilmiah yang dilaksanakan yaitu:
+            <p style="text-indent: 50px">
+                Selama menjalani Kegiatan KOAS di *RSD Mangusada*, Kami mengharapkan agar Bapak/Ibu dapat
+                menjadi Pembimbing bagi para Mahasiswa tersebut diatas.
             </p>
-            <p>1. Setiap Dokter Muda wajib mengikuti laporan pagi</p>
-            <p>2. Setiap Dokter Muda mendapat laporan kasus (1x)</p>
-            <p>3. Setiap Dokter Muda mendapat Refleksi kasus (1x)</p>
-            <p>4. Setiap Dokter Muda mendapat Tutorial klinik secara berkelompok (1x)</p>
-            <p>5. Setiap Dokter Muda mendapat Mini-Cex (1x)</p>
-            <p>6. Setiap Dokter Muda mendapat Bimbingan Bed Side Teaching</p>
-            <p>7. Setiap Dokter Muda mengisi kompetensi yang disesuaikan dengan Buku Panduan Kepaniteraan atau Buku log</p>
-            <p style="text-indent: 20px; margin-top: 15px">
-                Demikian kami sampaikan atas perhatian dan kerjasamanya serta bimbingan nya kami ucapkan terimakasih
+            <p style="text-indent: 50px; margin-top: 15px">
+                Demikian surat ini kami sampaikan atas perhatiannya kami ucapkan terimakasih
             </p>
         </div>
         <div>
             
         </div>
         <!-- Tanda Tangan Ketua Prodi? -->
-        <div class="row">
-            <div class="col-8"></div>
-            <div style="padding-top: 35px; padding-bottom: 25px">
-            <div class="col-4">
-                 <div>
-                    <center>
-                        <p>FAKULTAS KEDOKTERAN DAN ILMU KESEHATAN</p>
-                        <p>Universitas Warmadewa</h4>
-                        <p>Ka.Komkordik FKIK RSUD Sanjiwani Gianyar</p>
-                    </center>
-                 </div>
-            </div>
-            </div>
-        </div>
-        <div style="padding-top: 45px">
-            <div class="col-4">
-                <div>
-                    <center>
-                        <p style="text-decoration: underline">dr. Made Dwi Yoga Bharata, Sp. B KBD</p>
-                        <p>NIP: 1967092120060410002</p>
-                    <center>
-                </div>
-            </div>
-        </div>
-
+        <table class="ttd">
+            <thead>
+            <tr>
+                <td>
+                    <p>Mengetahui,</p>
+                    <p>Ka.Komkordik FKIK RSUD Sanjiwani Gianyar</p>
+                </td>
+                <td>
+                    <p>RSUD Sanjiwani</p>
+                    <p>Dokter *Penyakit Dalam*</p>
+                </td>
+            </tr>
+            </thead>
+            <tbody style="padding-top: 100px">
+            <tr style="height: 20px;"> 
+                <td>
+                    <p style="text-decoration: underline">dr. Made Dwi Yoga Bharata, Sp. B KBD</p>
+                    <p>NIP: 1967092120060410002</p>
+                </td>
+                <td>
+                    <p style="text-decoration: underline">*dr. Made Dwi Yoga Bharata, Sp. B KBD*</p>
+                    <p>NIP: 1967092120060410002</p>
+                </td>
+            </tr>
+        </tbody>
+        </table>
     </body>
 </html>

@@ -3,12 +3,14 @@
 namespace App\Nova;
 
 use App\Nova\Actions\StationGroup\AssignTeacherToStationGroup;
+use App\Nova\Actions\StationGroup\GeneratePDFLetter;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class StationGroup extends Resource
@@ -53,6 +55,10 @@ class StationGroup extends Resource
             Date::make('Start Date')->sortable(),
             Date::make('End Date')->sortable(),
             Text::make('Status')->sortable()
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+            File::make('Surat Pengantar')
                 ->hideFromIndex()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
@@ -102,6 +108,9 @@ class StationGroup extends Resource
     {
         return [
             AssignTeacherToStationGroup::make()
+                ->onlyOnDetail(),
+            
+            GeneratePDFLetter::make()
                 ->onlyOnDetail(),
         ];
     }

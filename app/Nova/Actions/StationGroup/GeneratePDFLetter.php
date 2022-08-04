@@ -34,7 +34,7 @@ class GeneratePDFLetter extends Action
         
         $path = $generatePDFLetter->makePDF($models);
 
-        return Action::download(url($path), uniqid() . '.pdf');
+        return Action::openInNewTab(url($path), uniqid() . '.pdf');
     }
 
      /**

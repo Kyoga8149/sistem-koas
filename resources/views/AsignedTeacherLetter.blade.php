@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
         <title>Surat Pengantar Pengiriman Residen</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        
 
         <style>
             body {
@@ -104,7 +103,8 @@
         <div style="margin-left: 85px; padding-top: 20px">
             <table>
                 <tr><td></td><td>Kepada</td></tr>
-                <tr><td style="padding-left: 25px; padding-right: 25px">yth</td><td>{{$stationGroup->teacher_id}}</td></tr>
+                <tr><td style="padding-left: 25px; padding-right: 25px">yth</td>
+                    <td>{{$stationGroup[0]->teacher_id}}</td></tr>
                 <tr><td></td><td>di-</td></tr>
                 <tr><td></td><td style="text-align: center">Tempat</td></tr>
             </table>
@@ -115,8 +115,8 @@
             <p>Dengan Hormat<p>
             <p style="text-indent: 50px;">
                 Bersama dengan surat ini kami kirimkan nama Mahasiswa KOAS yang akan menjalani
-                Kegiatan KOAS ke Bagian {{$stationGroup['stationtype']}} {{$stationGroups['stationhospital']}}
-                terhitung dari tanggal {{$stationGroup['startdate']}} s/d {{$stationGroup['enddate']}} siklus dilakukan secara 
+                Kegiatan KOAS ke Bagian {{$stationGroup[0]->station_id}} {{$stationGroup[0]->station_id}}
+                terhitung dari tanggal {{$stationGroup[0]->start_date}} s/d {{$stationGroup[0]->end_date}} siklus dilakukan secara 
                 Full Offline, sebagai berikut nama-nama Mahasiswa Koas yang menjalani Kegiatan KOAS yaitu:
             </p>
         </div>
@@ -128,17 +128,17 @@
                 <tr>
                     <td>Bagian</td>
                     <td class="space">:</td>
-                    <td>{{$stationGroup['stationtype']}}</td>
+                    <td>{{$stationGroup[0]->station_id}}</td>
                 </tr>
                 <tr>
                     <td>Kelompok</td>
                     <td class="space">:</td>
-                    <td>{{$stationGroup['stationid']}}</td>
+                    <td>{{$stationGroup[0]->group_id}}</td>
                 </tr>
                 <tr>
                     <td>Mulai</td>
                     <td class="space">:</td>
-                    <td>{{$stationGroup['startdate']}} s/d {{$stationGroup['enddate']}}</td>
+                    <td>{{$stationGroup[0]->start_date}} s/d {{$stationGroup[0]->end_date}}</td>
                 </tr>
             </table>
         </div>
@@ -155,13 +155,13 @@
             </thead>
             <tbody>
          
-            @foreach($students as $students)
+           
                 <tr>
                     <td style="text-align:center" class="num"></td>
-                    <td> {{$students['fullname']}} </td>
-                    <td> {{$students['studentnumber']}} </td>
+                    <td> {{$stationGroup}} </td>
+                    <td> asdasd </td>
                 </tr>                   
-            @endforeach
+         
       
             </tbody>
         </table>

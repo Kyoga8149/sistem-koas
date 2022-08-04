@@ -4,10 +4,9 @@ namespace App\Actions\StationGroups;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use PDF;
-use App\Models\Group;
 use App\Models\StationGroup;
 use App\Models\Student;
-use App\Models\Teacher;
+use App\Models\Group;
 use Carbon\Carbon;
 
 class GeneratePDFLetter
@@ -19,27 +18,15 @@ class GeneratePDFLetter
         // ...
     }
 
-    public function makePDF()
+    public function makePDF($stationGroup)
     {
-        //$stationGroup = StationGroup::all();
-       // $students = Student::with('group');
-       // $group = Group::with('stationGroups');
-       // $teacher = StationGroup::with('teacher');
         
-        $group = Group::has('stationGroups')->get();
-        $stationGroup = StationGroup::whereBelongsTo($group)->get();
-        $students = Student::whereBelongsTo($group)->get();
-        
-
-       
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadView('AsignedTeacherLetter', compact('stationGroup', 'students'));
+        $pdf = PDF::loadView('AsignedTeacherLetter', compact('stationGroup'));
         $id = uniqid();
-        $path = '/storage/tmp/invoices/'. $id .'.pdf';
+        $path = '/storage'. $id .'.pdf';
         $pdf->save(public_path($path));
-
+       
         return $path;
-
-        //return view('AsignedTeacherLetter', compact('stationGroup', 'students'));
     }
 }
